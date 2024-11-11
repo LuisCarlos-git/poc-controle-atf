@@ -1,4 +1,5 @@
-import '@/styles/globals.css';
+import { ThemeProvider } from '@/contexts/theme';
+import '@/styles/global.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,7 +14,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
