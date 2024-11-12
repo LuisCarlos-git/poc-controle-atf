@@ -1,9 +1,5 @@
-import { LoginForm } from '@/components/login-form';
+import { LoginTemplate } from '@/templates';
 
 export default function Home() {
-  return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <LoginForm />
-    </div>
-  );
+  return <LoginTemplate />;
 }
