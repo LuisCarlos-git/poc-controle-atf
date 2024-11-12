@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -14,7 +12,7 @@ import { Label } from '@/components/ui/label';
 export function LoginTemplate() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <Card className="mx-auto max-w-sm w-full">
+      <Card className="mx-auto max-w-md w-full">
         <CardHeader>
           <CardTitle className="text-2xl">Gerenciador ATF</CardTitle>
           <CardDescription>
@@ -28,7 +26,7 @@ export function LoginTemplate() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="email@example.com"
                 required
               />
             </div>
@@ -38,16 +36,10 @@ export function LoginTemplate() {
               </div>
               <Input id="password" type="password" required />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full mt-4">
               Entrar
             </Button>
           </div>
-          <Link
-            href="/register"
-            className="ml-auto inline-block text-sm underline mt-4"
-          >
-            Não tenho conta ainda
-          </Link>
         </CardContent>
       </Card>
     </div>
