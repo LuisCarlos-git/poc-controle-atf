@@ -1,5 +1,5 @@
 import { LoginTemplate } from '@/templates';
 
-export default function Home() {
+export default async function Home() {
   return <LoginTemplate />;
 }

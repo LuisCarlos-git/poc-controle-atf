@@ -1,4 +1,4 @@
 export const ENDPOINTS = {
-  SIGN_IN: '/auth/api/sign-in',
-  SIGN_OUT: '/auth/api/sign-out',
-};
+  SIGN_IN: '/api/auth/sign-in',
+  SIGN_OUT: '/api/auth/sign-out',
+} as const;
