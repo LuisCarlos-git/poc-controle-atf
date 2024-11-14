@@ -1,11 +1,12 @@
 import { COOKIES_KEYS } from '@/constants/cookies';
+import { dbUserServices } from '@/db/services/user';
 import { verifyJwtToken } from '@/lib/jwt';
 import { cookies } from 'next/headers';
 
 /**
- * Retrieves the session ID from the JWT token stored in the cookies.
+ * Gets the session token from the cookies.
  *
- * @returns The user ID extracted from the JWT token if valid, or null if the token is absent or invalid.
+ * @returns The user object if the token is valid, or null if not present or invalid.
  */
 export async function getSession() {
   const cookie = await cookies();
@@ -18,7 +19,9 @@ export async function getSession() {
 
     if (!sub) return null;
 
-    return sub;
+    const user = await dbUserServices.getUserById(sub);
+
+    return user;
   } catch {
     return null;
   }

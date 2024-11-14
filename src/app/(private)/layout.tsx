@@ -6,9 +6,9 @@ export default async function PrivateLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const token = await getSession();
+  const user = await getSession();
 
-  if (!token) {
+  if (!user) {
     return redirect('/sign-in');
   }
 
