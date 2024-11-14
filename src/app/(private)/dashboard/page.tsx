@@ -1,3 +1,8 @@
+'use client';
+
+import { useSession } from '@/hooks/contexts/useSession';
+
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  const { name } = useSession();
+  return <div>{name}</div>;
 }

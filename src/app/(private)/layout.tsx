@@ -1,3 +1,4 @@
+import { SessionProvider } from '@/contexts/Session';
 import { getSession } from '@/utils/auth/session';
 import { redirect } from 'next/navigation';
 
@@ -12,5 +13,5 @@ export default async function PrivateLayout({
     return redirect('/sign-in');
   }
 
-  return children;
+  return <SessionProvider user={user}>{children}</SessionProvider>;
 }
