@@ -1,8 +1,20 @@
-import { text, varchar, pgTable, uuid } from 'drizzle-orm/pg-core';
+import { text, varchar, pgTable, uuid, json } from 'drizzle-orm/pg-core';
+import { CustomerAddress } from '../models/users';
 
 export const usersTable = pgTable('users', {
-  id: uuid('id').primaryKey(),
+  id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   password: varchar('password').notNull(),
+});
+
+export const customersTable = pgTable('customers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  phoneNumber: text('phone_number').notNull(),
+  address: json('address').$type<CustomerAddress>().notNull(),
+  userId: uuid('user_id')
+    .references(() => usersTable.id)
+    .notNull(),
 });

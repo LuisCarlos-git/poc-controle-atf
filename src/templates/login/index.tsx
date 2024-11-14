@@ -8,18 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
-import axios from 'axios';
+
+import { Form, Input } from '@/components/form';
+
+import { useLoginPage } from './hook';
 
 export function LoginTemplate() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await axios.post('/api/sign-in', formData);
-  };
-
+  const { form } = useLoginPage();
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <Card className="mx-auto max-w-md w-full">
@@ -30,40 +25,23 @@ export function LoginTemplate() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="grid gap-4">
+          <Form
+            methods={form.methods}
+            onSubmit={form.handleSignIn}
+            className="grid gap-4"
+          >
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="email@example.com"
-                required
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-              />
+              <Input name="email" label="Email*" type="email" />
+              <Input name="password" label="Senha*" type="password" />
             </div>
-            <div className="grid gap-2">
-              <div>
-                <Label htmlFor="password">Password</Label>
-              </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-              />
-            </div>
-            <Button type="submit" className="w-full mt-4">
+            <Button
+              isLoading={form.isSubmitting}
+              type="submit"
+              className="w-full mt-4"
+            >
               Entrar
             </Button>
-          </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

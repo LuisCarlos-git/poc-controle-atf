@@ -1,4 +1,10 @@
 import { InferSelectModel } from 'drizzle-orm';
-import { usersTable } from '../schema';
+import { customersTable, usersTable } from '../schema';
 
 export type User = InferSelectModel<typeof usersTable>;
+export type Customer = InferSelectModel<typeof customersTable>;
+export type CustomerAddress = {
+  farmName: string;
+  city: string;
+  postalCode: string;
+};

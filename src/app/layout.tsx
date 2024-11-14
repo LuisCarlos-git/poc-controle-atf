@@ -1,5 +1,6 @@
 import '@/styles/global.css';
 import type { Metadata } from 'next';
+import { Toaster } from 'sonner';
 
 import { ThemeProvider } from '@/contexts/theme';
 
@@ -22,6 +23,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster richColors position="top-right" />
           {children}
         </ThemeProvider>
       </body>
