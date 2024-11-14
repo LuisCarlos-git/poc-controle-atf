@@ -16,3 +16,15 @@ export function createJwtToken(userId: string) {
     { expiresIn: '7d' },
   );
 }
+
+/**
+ * Verifies a JWT token with the secret key in the environment variable
+ * `JWT_SECRET`.
+ *
+ * @param token - The JWT token to verify.
+ * @returns The decoded payload of the JWT token if it is valid, or throws an
+ * error if the token is invalid.
+ */
+export function verifyJwtToken(token: string) {
+  return Jwt.verify(token, process.env.JWT_SECRET as string) as Jwt.JwtPayload;
+}

@@ -1,6 +1,6 @@
 import { db } from './src/db/config/db';
 import { usersTable } from './src/db/schema';
-import { createHashedPassword } from './src/lib/auth/bcrypt';
+import { createHashedPassword } from './src/lib/bcrypt';
 
 async function runUserSeed() {
   console.info('running user seed');

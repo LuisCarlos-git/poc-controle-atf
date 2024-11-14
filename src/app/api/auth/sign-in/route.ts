@@ -1,5 +1,5 @@
-import { comparePasswrods } from '@/lib/auth/bcrypt';
-import { createJwtToken } from '@/lib/auth/jwt';
+import { comparePasswrods } from '@/lib/bcrypt';
+import { createJwtToken } from '@/lib/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import { dbUserServices } from '@/db/services/user';
 import { COOKIES_KEYS } from '@/constants/cookies';
