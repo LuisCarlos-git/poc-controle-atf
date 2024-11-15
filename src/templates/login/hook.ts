@@ -18,7 +18,7 @@ export function useLoginPage() {
   const handleSignIn = handleSubmit(async (data) => {
     try {
       await authServices.signIn(data);
-      router.push('/dashboard');
+      router.push('/customers');
     } catch {
       toast.error('Email ou senha inválidos');
     }

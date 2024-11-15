@@ -19,7 +19,7 @@ export function LoginTemplate() {
     <div className="w-full h-screen flex justify-center items-center">
       <Card className="mx-auto max-w-md w-full">
         <CardHeader>
-          <CardTitle className="text-2xl">Gerenciador ATF</CardTitle>
+          <CardTitle className="text-2xl">Gerenciador IATF</CardTitle>
           <CardDescription>
             Digite seu email e senha para fazer login
           </CardDescription>

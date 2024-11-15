@@ -19,6 +19,8 @@ export class DbUserService implements IDbUserServices {
       id: user[0].id,
       email: user[0].email,
       name: user[0].name,
+      createdAt: user[0].createdAt,
+      updatedAt: user[0].updatedAt,
     };
   }
   async getUserByEmail(email: string): Promise<User | null> {

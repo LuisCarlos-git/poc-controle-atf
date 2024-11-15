@@ -1,3 +1,5 @@
+import { AppSidebar } from '@/components/shared/app-sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { SessionProvider } from '@/contexts/Session';
 import { getSession } from '@/utils/auth/session';
 import { redirect } from 'next/navigation';
@@ -13,5 +15,12 @@ export default async function PrivateLayout({
     return redirect('/sign-in');
   }
 
-  return <SessionProvider user={user}>{children}</SessionProvider>;
+  return (
+    <SessionProvider user={user}>
+      <SidebarProvider>
+        <AppSidebar />
+        {children}
+      </SidebarProvider>
+    </SessionProvider>
+  );
 }
