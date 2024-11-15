@@ -15,6 +15,13 @@
       "when": 1731684728178,
       "tag": "0001_sparkling_daredevil",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731693926608,
+      "tag": "0002_peaceful_sasquatch",
+      "breakpoints": true
     }
   ]
 }
