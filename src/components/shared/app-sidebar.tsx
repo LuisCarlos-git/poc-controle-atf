@@ -1,3 +1,5 @@
+'use client';
+
 import { User } from 'lucide-react';
 
 import {
@@ -14,9 +16,11 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { getSession } from '@/utils/auth/session';
 import { Collapsible, CollapsibleTrigger } from '../ui/collapsible';
 import { CollapsibleContent } from '@radix-ui/react-collapsible';
+import { useSession } from '@/hooks/contexts/useSession';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const items = [
   {
@@ -29,8 +33,9 @@ const items = [
   },
 ];
 
-export async function AppSidebar() {
-  const user = await getSession();
+export function AppSidebar() {
+  const user = useSession();
+  const pathname = usePathname();
   return (
     <Sidebar>
       <SidebarContent className="px-2">
@@ -56,7 +61,13 @@ export async function AppSidebar() {
                       <SidebarMenuItem key={submenu.title}>
                         <SidebarMenuSub>
                           <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild>
+                            <SidebarMenuSubButton
+                              className={cn(
+                                pathname === submenu.href &&
+                                  'bg-sidebar-accent text-sidebar-accent-foreground',
+                              )}
+                              asChild
+                            >
                               <Link href={submenu.href}>{submenu.title}</Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
