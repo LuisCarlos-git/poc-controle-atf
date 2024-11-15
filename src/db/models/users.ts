@@ -7,4 +7,5 @@ export type CustomerAddress = {
   farmName: string;
   city: string;
   postalCode: string;
+  description: string;
 };
