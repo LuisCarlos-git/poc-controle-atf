@@ -47,4 +47,7 @@ export const procedures = pgTable('procedures', {
   customerId: uuid('customer_id')
     .references(() => customersTable.id)
     .notNull(),
+  userId: uuid('user_id')
+    .references(() => usersTable.id)
+    .notNull(),
 });
