@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1731684428613,
-      "tag": "0000_colorful_tarot",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1731684728178,
-      "tag": "0001_sparkling_daredevil",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1731693926608,
-      "tag": "0002_peaceful_sasquatch",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1731694072381,
-      "tag": "0003_windy_nick_fury",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1731694139210,
-      "tag": "0004_early_peter_quill",
+      "when": 1731694368514,
+      "tag": "0000_chief_sage",
       "breakpoints": true
     }
   ]
