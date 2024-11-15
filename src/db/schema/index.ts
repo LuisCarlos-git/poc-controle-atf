@@ -19,7 +19,7 @@ export const usersTable = pgTable('users', {
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   password: varchar('password').notNull(),
-  employees: json('employees').$type<Employee[]>().notNull(),
+  employees: json('employees').$type<Employee[]>().default([]),
   createdAt,
   updatedAt,
 });
