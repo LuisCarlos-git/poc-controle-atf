@@ -23,8 +23,8 @@ const items = [
     title: 'Clientes',
     icon: User,
     submenus: [
-      { title: 'Todos os clientes', href: '/customer' },
-      { title: 'Cadastrar clientes', href: '/customer/register' },
+      { title: 'Todos os clientes', href: '/customers' },
+      { title: 'Cadastrar clientes', href: '/customers/register' },
     ],
   },
 ];

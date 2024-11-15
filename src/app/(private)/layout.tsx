@@ -19,7 +19,7 @@ export default async function PrivateLayout({
     <SessionProvider user={user}>
       <SidebarProvider>
         <AppSidebar />
-        {children}
+        <main className="px-7 w-full py-4">{children}</main>
       </SidebarProvider>
     </SessionProvider>
   );

@@ -1,3 +1,5 @@
+import { RegisterTemplate } from '@/templates';
+
 export default function RegisterPage() {
-  return <h1>register customer</h1>;
+  return <RegisterTemplate />;
 }
