@@ -9,7 +9,7 @@ export default async function PublicLayout({
   const user = await getSession();
 
   if (user) {
-    return redirect('/customer');
+    return redirect('/customers');
   }
 
   return children;
