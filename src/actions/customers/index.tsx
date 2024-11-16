@@ -20,6 +20,18 @@ export const registerCustomer = customerAction
     }
 
     try {
+      const customerExists = await dbCustomerServices.getCustomerByEmail(
+        customer.email,
+        user.id,
+      );
+
+      if (customerExists.length > 0) {
+        return {
+          message: 'Cliente ja cadastrado',
+          type: 'error',
+        };
+      }
+
       await dbCustomerServices.registerCustomer({
         address: customer.adreess,
         email: customer.email,

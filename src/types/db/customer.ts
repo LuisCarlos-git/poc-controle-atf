@@ -14,4 +14,5 @@ export type CustomerAddress = {
 export interface IDbCustomerServices {
   registerCustomer(data: CustomerInsert): Promise<void>;
   getAllCustomers(userId: string): Promise<Customer[]>;
+  getCustomerByEmail(email: string, userId: string): Promise<Customer[]>;
 }
