@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@/db/models/users';
+import { User } from '@/types/db/user';
 import { createContext } from 'react';
 
 export const SessionContext = createContext<Omit<User, 'password'> | null>(

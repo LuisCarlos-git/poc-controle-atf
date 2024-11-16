@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormValues } from './types';
-import { signInSchema } from './schema';
 import { authServices } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { signInSchema } from './schema';
 
 export function useLoginPage() {
   const router = useRouter();

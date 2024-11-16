@@ -1,7 +1,6 @@
 import { db } from '@/db/config/db';
-import { User } from '@/db/models/users';
 import { usersTable } from '@/db/schema';
-import { IDbUserServices } from '@/types/db/user';
+import { IDbUserServices, User } from '@/types/db/user';
 import { eq } from 'drizzle-orm';
 
 export class DbUserService implements IDbUserServices {
@@ -21,6 +20,7 @@ export class DbUserService implements IDbUserServices {
       name: user[0].name,
       createdAt: user[0].createdAt,
       updatedAt: user[0].updatedAt,
+      employees: user[0].employees,
     };
   }
   async getUserByEmail(email: string): Promise<User | null> {

@@ -1,3 +1,5 @@
+import { CustomerAddress } from '@/types/db/customer';
+import { Employee } from '@/types/db/user';
 import {
   text,
   varchar,
@@ -6,7 +8,6 @@ import {
   json,
   timestamp,
 } from 'drizzle-orm/pg-core';
-import { CustomerAddress, Employee } from '../models/users';
 
 const createdAt = timestamp('created_at').defaultNow().notNull();
 const updatedAt = timestamp('updated_at')

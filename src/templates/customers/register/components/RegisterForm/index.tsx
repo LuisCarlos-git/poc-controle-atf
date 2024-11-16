@@ -44,7 +44,9 @@ export function RegisterForm() {
       </div>
 
       <div className="flex justify-end">
-        <Button className="mt-9">Cadastrar</Button>
+        <Button isLoading={constants.isPending} className="mt-9">
+          Cadastrar
+        </Button>
       </div>
     </Form>
   );
