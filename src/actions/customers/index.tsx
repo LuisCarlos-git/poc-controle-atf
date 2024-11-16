@@ -40,3 +40,28 @@ export const registerCustomer = customerAction
       };
     }
   });
+
+export const getAllCustomers = customerAction.action(async () => {
+  const user = await getSession();
+
+  if (!user) {
+    return {
+      message: 'Não foi possivel listar os seus clientes!',
+      type: 'error',
+    };
+  }
+
+  try {
+    const customers = await dbCustomerServices.getAllCustomers(user.id);
+
+    return {
+      customers,
+    };
+  } catch (e) {
+    return {
+      message: 'Não foi possivel listar os seus clientes',
+      type: 'error',
+      detail: e,
+    };
+  }
+});

@@ -1,7 +1,5 @@
-import { getSession } from '@/utils/auth/session';
+import { CustomersListTemplate } from '@/templates';
 
-export default async function CustomersPage() {
-  console.log(await getSession());
-
-  return <h1>customers</h1>;
+export default function CustomersPage() {
+  return <CustomersListTemplate />;
 }
