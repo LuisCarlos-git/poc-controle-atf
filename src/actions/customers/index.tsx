@@ -2,7 +2,7 @@
 
 import { dbCustomerServices } from '@/db/services/customer';
 import { createSafeActionClient } from 'next-safe-action';
-import { registerSchema } from './schema';
+import { getCustomerSchema, registerSchema } from './schema';
 import { getSession } from '@/utils/auth/session';
 
 const customerAction = createSafeActionClient();
@@ -25,7 +25,7 @@ export const registerCustomer = customerAction
         user.id,
       );
 
-      if (customerExists.length > 0) {
+      if (customerExists) {
         return {
           message: 'Cliente ja cadastrado',
           type: 'error',
@@ -77,3 +77,32 @@ export const getAllCustomers = customerAction.action(async () => {
     };
   }
 });
+
+export const getCustomer = customerAction
+  .schema(getCustomerSchema)
+  .action(async ({ parsedInput: { customerId } }) => {
+    const user = await getSession();
+    if (!user) {
+      return {
+        message: 'Falha ao buscar os dados do cliente!',
+        type: 'error',
+      };
+    }
+
+    try {
+      const customer = await dbCustomerServices.getCustomerById(
+        customerId,
+        user.id,
+      );
+
+      return {
+        customer,
+      };
+    } catch (e) {
+      return {
+        message: 'Falha ao buscar os dados do cliente',
+        type: 'error',
+        detail: e,
+      };
+    }
+  });

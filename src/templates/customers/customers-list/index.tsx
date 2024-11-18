@@ -11,8 +11,6 @@ import Link from 'next/link';
 export async function CustomersListTemplate() {
   const result = await getAllCustomers();
 
-  console.log(result);
-
   return (
     <div className="container max-w-[1280px] mx-auto">
       <div>
@@ -24,7 +22,7 @@ export async function CustomersListTemplate() {
             prefetch
             className="max-w-80 w-full"
             key={customer.id}
-            href={`/customers/${customer.id}`}
+            href={`/customers/edit/${customer.id}`}
           >
             <Card className="flex justify-between items-center pr-4">
               <CardHeader>

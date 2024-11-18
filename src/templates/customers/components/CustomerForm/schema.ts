@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const registerSchema = z.object({
+export const customerSchema = z.object({
   name: z
     .string({ message: 'Nome obrigatório' })
     .min(1, { message: 'Nome obrigatório' }),

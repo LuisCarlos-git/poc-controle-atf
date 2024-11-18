@@ -1,16 +1,18 @@
 'use client';
 
 import { Form, Input } from '@/components/form';
-import { useRegisterForm } from './hook';
+import { useCustomerForm } from './hook';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/form/textarea';
 import { InputMaskControl } from '@/components/form/InputMaskControl';
 import { Combobox } from '@/components/form/combobox';
 
-export function RegisterForm() {
-  const { form, constants } = useRegisterForm();
+export function CustomerForm() {
+  const { form, constants } = useCustomerForm();
+
   return (
-    <Form methods={form.methods} onSubmit={form.handleRegisterCustomer}>
+    <Form methods={form.methods} onSubmit={form.handleSubmitForm}>
+      {constants.isGettingCustomer && <p>Carregando dados do cliente...</p>}
       <div className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold">Dados pessoais do cliente</h2>
         <Input name="name" label="Nome do cliente*" />
@@ -44,7 +46,7 @@ export function RegisterForm() {
       </div>
 
       <div className="flex justify-end">
-        <Button isLoading={constants.isPending} className="mt-9">
+        <Button isLoading={constants.isRegistering} className="mt-9">
           Cadastrar
         </Button>
       </div>

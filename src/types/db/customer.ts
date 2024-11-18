@@ -13,6 +13,7 @@ export type CustomerAddress = {
 
 export interface IDbCustomerServices {
   registerCustomer(data: CustomerInsert): Promise<void>;
-  getAllCustomers(userId: string): Promise<Customer[]>;
-  getCustomerByEmail(email: string, userId: string): Promise<Customer[]>;
+  getAllCustomers(userId: string): Promise<Customer[] | null>;
+  getCustomerByEmail(email: string, userId: string): Promise<Customer[] | null>;
+  getCustomerById(customerId: string, userId: string): Promise<Customer | null>;
 }

@@ -11,3 +11,7 @@ export const registerSchema = z.object({
     description: z.string().min(1),
   }),
 });
+
+export const getCustomerSchema = z.object({
+  customerId: z.string().min(1),
+});
