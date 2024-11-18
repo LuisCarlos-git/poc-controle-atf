@@ -12,7 +12,7 @@ export async function CustomersListTemplate() {
   const result = await getAllCustomers();
 
   return (
-    <div className="container max-w-[1280px] mx-auto">
+    <div>
       <div>
         <h1 className="text-2xl font-bold mb-8">Clientes</h1>
       </div>
