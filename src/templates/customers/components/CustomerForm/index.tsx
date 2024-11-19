@@ -47,7 +47,7 @@ export function CustomerForm() {
 
       <div className="flex justify-end">
         <Button isLoading={constants.isSubmitting} className="mt-9">
-          {constants.isEditMode ? 'Editar' : 'Cadastrar'}
+          {constants.isEditMode ? 'Salvar' : 'Cadastrar'}
         </Button>
       </div>
     </Form>
