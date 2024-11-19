@@ -8,24 +8,27 @@ import { toast } from 'sonner';
 import { customerSchema } from './schema';
 import {
   useCustomerRegisterAction,
-  useGetCustomer,
+  useGetCustomerData,
+  useUpdateCustomerData,
 } from '@/hooks/actions/customer';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export function useCustomerForm() {
   const { customerId } = useParams<{ customerId: string }>();
+  const router = useRouter();
   const { registerCustomer, isRegistering } = useCustomerRegisterAction();
-  const { getCustomer, isGettingCustomer } = useGetCustomer();
+  const { getCustomerData, isGettingCustomer } = useGetCustomerData();
+  const { updateCustomerData, isUpdatingCustomer } = useUpdateCustomerData();
 
   const methods = useForm<CustomerFormValues>({
     resolver: zodResolver(customerSchema),
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
-      adreess: {
+      phoneNumber: undefined,
+      address: {
         farmName: '',
-        postalCode: '',
+        postalCode: undefined,
         city: '',
         description: '',
       },
@@ -36,7 +39,7 @@ export function useCustomerForm() {
 
   const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
 
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit, setValue, reset } = methods;
 
   const handleRegisterCustomer = useCallback(
     async (data: CustomerFormValues) => {
@@ -48,13 +51,25 @@ export function useCustomerForm() {
       }
 
       toast.success(result?.data?.message);
+
+      reset();
     },
-    [registerCustomer],
+    [registerCustomer, reset],
   );
 
-  const handleEditCustomer = useCallback((data: CustomerFormValues) => {
-    console.log(data);
-  }, []);
+  const handleEditCustomer = useCallback(
+    async (data: CustomerFormValues) => {
+      const result = await updateCustomerData({ ...data, id: customerId });
+      if (result?.data?.type === 'error') {
+        toast.error(result.data.message);
+        return;
+      }
+
+      toast.success(result?.data?.message);
+      router.push('/customers');
+    },
+    [customerId, router, updateCustomerData],
+  );
 
   const handleSubmitForm = handleSubmit(
     isEditMode ? handleEditCustomer : handleRegisterCustomer,
@@ -66,15 +81,18 @@ export function useCustomerForm() {
   }, []);
 
   const handleGetCustomerData = useCallback(async () => {
-    const result = await getCustomer({ customerId });
+    const result = await getCustomerData({ customerId });
 
-    if (!result?.data?.customer || result.data.type === 'error') return;
+    if (!result?.data?.customer || result.data.type === 'error') {
+      toast.error(result?.data?.message);
+      return;
+    }
 
     setValue('name', result.data.customer.name);
     setValue('email', result.data.customer.email);
-    setValue('phone', result.data.customer.phoneNumber);
-    setValue('adreess', result.data.customer.address);
-  }, [customerId, getCustomer, setValue]);
+    setValue('phoneNumber', result.data.customer.phoneNumber);
+    setValue('address', result.data.customer.address);
+  }, [customerId, getCustomerData, setValue]);
 
   useEffect(() => {
     getCities();
@@ -88,8 +106,9 @@ export function useCustomerForm() {
 
   return {
     constants: {
+      isEditMode,
       cities,
-      isRegistering,
+      isSubmitting: isUpdatingCustomer || isRegistering,
       isGettingCustomer,
     },
     form: {

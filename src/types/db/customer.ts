@@ -11,9 +11,15 @@ export type CustomerAddress = {
   description: string;
 };
 
+export type UpdateCustomer = Omit<
+  CustomerInsert,
+  'createdAt' | 'updatedAt' | 'userId'
+>;
+
 export interface IDbCustomerServices {
   registerCustomer(data: CustomerInsert): Promise<void>;
   getAllCustomers(userId: string): Promise<Customer[] | null>;
   getCustomerByEmail(email: string, userId: string): Promise<Customer[] | null>;
   getCustomerById(customerId: string, userId: string): Promise<Customer | null>;
+  updateCustomer(userId: string, data: Partial<UpdateCustomer>): Promise<void>;
 }

@@ -2,7 +2,11 @@
 
 import { dbCustomerServices } from '@/db/services/customer';
 import { createSafeActionClient } from 'next-safe-action';
-import { getCustomerSchema, registerSchema } from './schema';
+import {
+  getCustomerSchema,
+  registerSchema,
+  updateCustomerSchema,
+} from './schema';
 import { getSession } from '@/utils/auth/session';
 
 const customerAction = createSafeActionClient();
@@ -25,7 +29,7 @@ export const registerCustomer = customerAction
         user.id,
       );
 
-      if (customerExists) {
+      if (!!customerExists) {
         return {
           message: 'Cliente ja cadastrado',
           type: 'error',
@@ -33,10 +37,10 @@ export const registerCustomer = customerAction
       }
 
       await dbCustomerServices.registerCustomer({
-        address: customer.adreess,
+        address: customer.address,
         email: customer.email,
         name: customer.name,
-        phoneNumber: customer.phone,
+        phoneNumber: customer.phoneNumber,
         userId: user?.id,
       });
 
@@ -78,7 +82,7 @@ export const getAllCustomers = customerAction.action(async () => {
   }
 });
 
-export const getCustomer = customerAction
+export const getCustomerData = customerAction
   .schema(getCustomerSchema)
   .action(async ({ parsedInput: { customerId } }) => {
     const user = await getSession();
@@ -101,6 +105,34 @@ export const getCustomer = customerAction
     } catch (e) {
       return {
         message: 'Falha ao buscar os dados do cliente',
+        type: 'error',
+        detail: e,
+      };
+    }
+  });
+
+export const updateCustomerData = customerAction
+  .schema(updateCustomerSchema)
+  .action(async ({ parsedInput }) => {
+    const user = await getSession();
+
+    if (!user) {
+      return {
+        message: 'Falha ao atualizar os dados do cliente!',
+        type: 'error',
+      };
+    }
+
+    try {
+      await dbCustomerServices.updateCustomer(user.id, parsedInput);
+
+      return {
+        message: 'Cliente atualizado com sucesso!',
+        type: 'success',
+      };
+    } catch (e) {
+      return {
+        message: 'Falha ao atualizar os dados do cliente!',
         type: 'error',
         detail: e,
       };

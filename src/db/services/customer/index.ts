@@ -4,10 +4,29 @@ import {
   Customer,
   CustomerInsert,
   IDbCustomerServices,
+  UpdateCustomer,
 } from '@/types/db/customer';
 import { and, eq } from 'drizzle-orm';
 
 class DbCustomerServices implements IDbCustomerServices {
+  async updateCustomer(userId: string, data: UpdateCustomer): Promise<void> {
+    await db
+      .update(customersTable)
+      .set({
+        address: {
+          farmName: data.address?.farmName,
+          city: data.address?.city,
+          postalCode: data.address?.postalCode,
+          description: data.address?.description,
+        },
+        email: data.email,
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+      })
+      .where(
+        and(eq(customersTable.id, data.id!), eq(customersTable.userId, userId)),
+      );
+  }
   async getCustomerById(
     customerId: string,
     userId: string,
@@ -22,7 +41,7 @@ class DbCustomerServices implements IDbCustomerServices {
         ),
       );
 
-    if (!customer) return null;
+    if (customer.length === 0) return null;
 
     return customer[0];
   }
@@ -37,7 +56,7 @@ class DbCustomerServices implements IDbCustomerServices {
         and(eq(customersTable.email, email), eq(customersTable.userId, userId)),
       );
 
-    if (!customer) return null;
+    if (customer.length === 0) return null;
 
     return customer;
   }
@@ -47,7 +66,7 @@ class DbCustomerServices implements IDbCustomerServices {
       .from(customersTable)
       .where(eq(customersTable.userId, userId));
 
-    if (!customers) return null;
+    if (customers.length === 0) return null;
 
     return customers;
   }

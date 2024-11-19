@@ -1,4 +1,8 @@
-import { getCustomer, registerCustomer } from '@/actions/customers';
+import {
+  getCustomerData,
+  registerCustomer,
+  updateCustomerData,
+} from '@/actions/customers';
 import { useAction } from 'next-safe-action/hooks';
 
 export function useCustomerRegisterAction() {
@@ -10,11 +14,20 @@ export function useCustomerRegisterAction() {
   };
 }
 
-export function useGetCustomer() {
-  const { executeAsync, isPending } = useAction(getCustomer);
+export function useGetCustomerData() {
+  const { executeAsync, isPending } = useAction(getCustomerData);
 
   return {
-    getCustomer: executeAsync,
+    getCustomerData: executeAsync,
     isGettingCustomer: isPending,
+  };
+}
+
+export function useUpdateCustomerData() {
+  const { executeAsync, isPending } = useAction(updateCustomerData);
+
+  return {
+    updateCustomerData: executeAsync,
+    isUpdatingCustomer: isPending,
   };
 }

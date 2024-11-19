@@ -7,10 +7,10 @@ export const customerSchema = z.object({
   email: z
     .string({ message: 'E-mail obrigatório' })
     .email({ message: 'E-mail inválido' }),
-  phone: z
+  phoneNumber: z
     .string({ message: 'Telefone obrigatório' })
     .min(1, { message: 'Telefone obrigatório' }),
-  adreess: z.object({
+  address: z.object({
     farmName: z
       .string({ message: 'Nome da fazenda obrigatório' })
       .min(1, { message: 'Nome da fazenda obrigatório' }),

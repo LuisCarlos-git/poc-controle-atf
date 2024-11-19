@@ -4,6 +4,6 @@ export default function CustomerLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="container max-w-[1280px] mx-auto mt-8">{children}</main>
+    <main className="container max-w-[1200px] mx-auto mt-8">{children}</main>
   );
 }
