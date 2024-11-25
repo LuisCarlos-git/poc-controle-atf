@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
 import { ThemeProvider } from '@/contexts/theme';
+import { DialogProvider } from '@/contexts/Dialog';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Toaster richColors position="top-right" />
-          {children}
+          <DialogProvider>{children}</DialogProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 import { getAllCustomers } from '@/actions/customers';
 import { DataTable } from './components/customers-table';
-import { columns } from './constants';
+import { columns } from './components/customers-table/constants';
 
 export async function CustomersListTemplate() {
   const result = await getAllCustomers();

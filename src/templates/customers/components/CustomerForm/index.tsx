@@ -1,11 +1,12 @@
 'use client';
 
-import { Form, Input } from '@/components/form';
 import { useCustomerForm } from './hook';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/form/textarea';
 import { InputMaskControl } from '@/components/form/InputMaskControl';
 import { Combobox } from '@/components/form/combobox';
+import { Form } from '@/components/form/form';
+import { Input } from '@/components/form/input';
 
 export function CustomerForm() {
   const { form, constants } = useCustomerForm();

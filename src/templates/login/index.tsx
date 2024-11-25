@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-import { Form, Input } from '@/components/form';
-
 import { useLoginPage } from './hook';
+import { Form } from '@/components/form/form';
+import { Input } from '@/components/form/input';
 
 export function LoginTemplate() {
   const { form } = useLoginPage();

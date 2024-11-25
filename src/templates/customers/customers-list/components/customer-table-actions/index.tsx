@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,9 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { TableData } from './components/customers-table/types';
-import { ColumnDef } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
 import {
   Clipboard,
   MoreHorizontal,
@@ -17,34 +15,16 @@ import {
   Table2Icon,
   Trash2,
 } from 'lucide-react';
+import { CustomerTableActionsProps, DIALOG_IDS } from './types';
 import Link from 'next/link';
+import { useDialog } from '@/hooks/contexts/useDialog';
+import { DeleteAlert } from '@/components/shared/delete-alert';
 
-export const columns: ColumnDef<TableData>[] = [
-  {
-    header: 'Id',
-    accessorKey: 'id',
-  },
-  {
-    header: 'Nome do cliente',
-    accessorKey: 'name',
-  },
-  {
-    header: 'E-mail',
-    accessorKey: 'email',
-  },
-  {
-    header: 'Telefone',
-    accessorKey: 'phoneNumber',
-  },
-  {
-    header: 'Data de criação',
-    accessorKey: 'createdAt',
-    cell: ({ row }) =>
-      new Intl.DateTimeFormat('pt-BR').format(row.getValue('createdAt')),
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => (
+export function CustomerTableActions({ row }: CustomerTableActionsProps) {
+  const { handleOpenDialog, handleCloseDialog } = useDialog();
+
+  return (
+    <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -70,12 +50,21 @@ export const columns: ColumnDef<TableData>[] = [
               Editar cliente
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() =>
+              handleOpenDialog(DIALOG_IDS.DELETE_CUSTOMER_DIALOG_ID)
+            }
+          >
             <Trash2 className="mr-2 h-4 w-4" />
             Excluir cliente
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    ),
-  },
-];
+      <DeleteAlert
+        id={DIALOG_IDS.DELETE_CUSTOMER_DIALOG_ID}
+        onCancel={handleCloseDialog}
+        onConfirm={() => console.log('Excluir cliente')}
+      />
+    </>
+  );
+}

@@ -77,6 +77,7 @@ export function useCustomerForm() {
 
   const getCities = useCallback(async () => {
     const cities = await citiesServices.getCities();
+
     setCities(cities.map((city) => ({ value: city.name, label: city.name })));
   }, []);
 
