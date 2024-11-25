@@ -11,9 +11,7 @@ export async function CustomersListTemplate() {
         <h1 className="text-2xl font-bold mb-8">Clientes</h1>
       </div>
       <div className="w-full">
-        {result?.data?.customers && (
-          <DataTable columns={columns} data={result.data.customers} />
-        )}
+        <DataTable columns={columns} data={result?.data?.customers ?? []} />
       </div>
     </div>
   );

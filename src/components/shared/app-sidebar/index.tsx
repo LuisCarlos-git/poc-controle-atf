@@ -16,11 +16,11 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Collapsible, CollapsibleTrigger } from '../ui/collapsible';
 import { CollapsibleContent } from '@radix-ui/react-collapsible';
 import { useSession } from '@/hooks/contexts/useSession';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 const items = [
   {

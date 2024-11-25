@@ -21,6 +21,7 @@ import {
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { TableSearch } from '@/components/form/table-search';
+import { ConditionalRender } from '@/components/shared/ConditionalRender';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,10 +54,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <TableSearch
-        value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-        onChange={(value) => table.getColumn('name')?.setFilterValue(value)}
-      />
+      <ConditionalRender shouldRender={!!table.getRowModel().rows?.length}>
+        <TableSearch
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(value) => table.getColumn('name')?.setFilterValue(value)}
+        />
+      </ConditionalRender>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -78,8 +81,20 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+            <ConditionalRender
+              shouldRender={!!table.getRowModel().rows?.length}
+              fallback={
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    Sem clientes cadastrados.
+                  </TableCell>
+                </TableRow>
+              }
+            >
+              {table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
@@ -93,38 +108,31 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  Sem clientes cadastrados.
-                </TableCell>
-              </TableRow>
-            )}
+              ))}
+            </ConditionalRender>
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <ConditionalRender shouldRender={table.getPageCount() > 1}>
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      </ConditionalRender>
     </div>
   );
 }
